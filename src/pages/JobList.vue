@@ -1,7 +1,7 @@
 <template>
     <section class="c-JobList">
 
-        <CardJob v-for="job in jobsStore.jobs" :job="job" />
+        <CardJob v-for="job in jobsStore.filteredJobs" :job="job" />
     </section>
 </template>
 

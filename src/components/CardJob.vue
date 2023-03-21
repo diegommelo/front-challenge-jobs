@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="c-CardJob-Tags">
-            <BaseButton v-for="tag in tags">{{ tag }}</BaseButton>
+            <BaseButton v-for="tag in tags" @click="jobsStore.addFilter(tag)">{{ tag }}</BaseButton>
         </div>
     </section>
 </template>
@@ -27,6 +27,7 @@
 <script setup>
 import BaseButton from '../components/base/BaseButton.vue';
 import BasePìll from '../components/base/BasePill.vue';
+import { useJobsStore } from '../stores/jobs';
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -36,6 +37,8 @@ const props = defineProps({
     },
 });
 
+const jobsStore = useJobsStore();
+
 const companyLogo = computed(() => {
     return props.job.logo.toLowerCase().replace("./images/", '');
 });
@@ -44,9 +47,7 @@ const tags = computed(() => {
     let tags = [];
     tags.push(props.job.role)
     tags.push(props.job.level)
-    let sortedLanguages = props.job.languages.sort();
-    let sortedTools = props.job.tools.sort();
-    tags = tags.concat(sortedLanguages, sortedTools);
+    tags = tags.concat(props.job.languages.sort(), props.job.tools.sort());
     return tags;
 });
 
