@@ -1,5 +1,5 @@
 <template>
-    <div class="c-CardJob" :class="{'featured': isFeatured }">
+    <section class="c-CardJob" :class="{'featured': isFeatured }">
         <div class="c-CardJob-CompanyLogo">
             <img src="@/assets/images/photosnap.svg" alt="Photosnap">
         </div>
@@ -25,7 +25,7 @@
             <BaseButton>CSS</BaseButton>
             <BaseButton>JavaScript</BaseButton>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>

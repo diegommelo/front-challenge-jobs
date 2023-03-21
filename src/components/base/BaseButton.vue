@@ -21,6 +21,7 @@ button {
     transition: all 0.2s ease-in-out;
     &:hover {
         background-color: var(--button-hover-color);
+        color: var(--color-white);
     }
 }
 </style>
