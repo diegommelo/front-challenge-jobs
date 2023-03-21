@@ -1,5 +1,5 @@
 <template>
-    <div class="c-CardJob">
+    <div class="c-CardJob" :class="{'featured': isFeatured }">
         <div class="c-CardJob-CompanyLogo">
             <img src="@/assets/images/photosnap.svg" alt="Photosnap">
         </div>
@@ -7,8 +7,8 @@
             <div class="c-CardJob-Company">
                 <span class="c-CardJob-CompanyName">Photosnap</span>
                 <div class="c-CardJob-Featured">
-                    <BasePìll type="light">new!</BasePìll>
-                    <BasePìll type="dark">featured</BasePìll>
+                    <BasePìll type="light" v-if="isNew">new!</BasePìll>
+                    <BasePìll type="dark" v-if="isFeatured">featured</BasePìll>
                 </div>
             </div>
             <span class="c-CardJob-JobTitle">Senior Frontend Developer</span>
@@ -31,6 +31,17 @@
 <script setup>
 import BaseButton from '../components/base/BaseButton.vue';
 import BasePìll from '../components/base/BasePill.vue';
+
+defineProps({
+    isFeatured: {
+        type: Boolean,
+        default: false,
+    },
+    isNew: {
+        type: Boolean,
+        default: false,
+    }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -39,10 +50,23 @@ import BasePìll from '../components/base/BasePill.vue';
     padding: 0rem 1.2rem 1.2rem 1.2rem;
     border-radius: 0.5rem;
     display: flex;
-    gap: 0.5rem;
     flex-direction: column;
-    border-left: 0.5rem solid var(--color-primary);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-left: 0.5rem solid var(--color-white);
+    &.featured {
+        border-left: 0.5rem solid var(--color-primary);
+    }
 }
+@media screen and (min-width: 1024px) {
+    .c-CardJob {
+        display: grid;
+        grid-template-columns: 0.5fr 1fr 2fr;
+        padding: 1.5rem 1.2rem;
+        gap: 1.2rem;
+    }
+}
+
+
 .c-CardJob-Info {
     display: flex;
     flex-direction: column;
@@ -56,6 +80,16 @@ import BasePìll from '../components/base/BasePill.vue';
         height: 1px;
         background-color: var(--divider-dark);
         opacity: 0.2;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .c-CardJob-Info {
+        margin-top: 0;
+        margin-bottom: 0;
+        gap: 0.5rem;
+        &::after {
+            display: none;
+        }
     }
 }
 .c-CardJob-Company {
@@ -102,12 +136,29 @@ import BasePìll from '../components/base/BasePill.vue';
     gap: 0.5rem;
     flex-wrap: wrap;
 }
+@media screen and (min-width: 1024px) {
+    .c-CardJob-Tags {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
 .c-CardJob-CompanyLogo {
-    //overlap the company logo at the top of the card
     position: relative;
     top: -1.6rem;
     img {
         width: 4rem;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .c-CardJob-CompanyLogo {
+        position: relative;
+        text-align: center;
+        top: 0;
+        img {
+            width: 5rem;
+            vertical-align: middle;
+        }
     }
 }
 </style>

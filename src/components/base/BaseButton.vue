@@ -13,8 +13,8 @@ button {
     background-color: var(--button-background-color);
     color: var(--color-primary);
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
     font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;

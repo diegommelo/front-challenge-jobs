@@ -16,4 +16,10 @@ header {
   margin-bottom: 4rem;
   background: url('@/assets/images/bg-header-mobile.svg') no-repeat center bottom / cover var(--color-primary);
 }
+@media screen and (min-width: 1024px) {
+  header {
+    background: url('@/assets/images/bg-header-desktop.svg') no-repeat center bottom / cover var(--color-primary);
+  }
+  
+}
 </style>
