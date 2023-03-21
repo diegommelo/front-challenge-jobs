@@ -25,8 +25,8 @@
 </template>
 
 <script setup>
-import BaseButton from '../components/base/BaseButton.vue';
-import BasePìll from '../components/base/BasePill.vue';
+import BaseButton from './base/BaseButton.vue';
+import BasePìll from './base/BasePill.vue';
 import { useJobsStore } from '../stores/jobs';
 import { computed } from 'vue'
 
@@ -76,7 +76,6 @@ const tags = computed(() => {
         gap: 1.2rem;
     }
 }
-
 
 .c-CardJob-Info {
     display: flex;

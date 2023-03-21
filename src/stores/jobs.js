@@ -12,6 +12,10 @@ export const useJobsStore = defineStore('jobs', () => {
     }
   }
 
+  const removeFilter = (filter) => {
+    filters.value = filters.value.filter((f) => f !== filter)
+  }
+
   const filteredJobs = computed(() => {
     if (filters.value.length === 0) {
       return jobs.value
@@ -29,5 +33,5 @@ export const useJobsStore = defineStore('jobs', () => {
       return filters.value.every((filter) => tags.includes(filter))
     })
   })
-  return { jobs, filters, addFilter, filteredJobs }
+  return { jobs, filters, addFilter, removeFilter, filteredJobs }
 })

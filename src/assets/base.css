@@ -31,8 +31,8 @@
 /* semantic color variables for this project */
 :root {
   --color-primary: var(--vt-c-desaturated-dark-cyan);
-  --color-dark: var(--vt-c-very-dark-grayish-cyan);
   --color-primary-dark: var(--vt-c-dark-grayish-cyan);
+  --color-dark: var(--vt-c-very-dark-grayish-cyan);
 
   --color-white: var(--vt-c-white);
 
