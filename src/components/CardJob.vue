@@ -1,29 +1,25 @@
 <template>
-    <section class="c-CardJob" :class="{'featured': isFeatured }">
+    <section class="c-CardJob" :class="{ 'featured': job.featured }">
         <div class="c-CardJob-CompanyLogo">
-            <img src="@/assets/images/photosnap.svg" alt="Photosnap">
+            <img :src="`src/assets/images/${companyLogo}`" alt="Photosnap">
         </div>
         <div class="c-CardJob-Info">
             <div class="c-CardJob-Company">
-                <span class="c-CardJob-CompanyName">Photosnap</span>
+                <span class="c-CardJob-CompanyName">{{ job.company }}</span>
                 <div class="c-CardJob-Featured">
-                    <BasePìll type="light" v-if="isNew">new!</BasePìll>
-                    <BasePìll type="dark" v-if="isFeatured">featured</BasePìll>
+                    <BasePìll type="light" v-if="job.new">new!</BasePìll>
+                    <BasePìll type="dark" v-if="job.featured">featured</BasePìll>
                 </div>
             </div>
-            <span class="c-CardJob-JobTitle">Senior Frontend Developer</span>
+            <span class="c-CardJob-JobTitle">{{ job.position }}</span>
             <div class="c-CardJob-Location">
-                <span>1d ago</span>
-                <span>Full Time</span>
-                <span>USA only</span>
+                <span>{{ job.postedAt }}</span>
+                <span>{{ job.contract }}</span>
+                <span>{{ job.location }}</span>
             </div>
         </div>
         <div class="c-CardJob-Tags">
-            <BaseButton>Frontend</BaseButton>
-            <BaseButton>Senior</BaseButton>
-            <BaseButton>HTML</BaseButton>
-            <BaseButton>CSS</BaseButton>
-            <BaseButton>JavaScript</BaseButton>
+            <BaseButton v-for="tag in tags">{{ tag }}</BaseButton>
         </div>
     </section>
 </template>
@@ -31,17 +27,29 @@
 <script setup>
 import BaseButton from '../components/base/BaseButton.vue';
 import BasePìll from '../components/base/BasePill.vue';
+import { computed } from 'vue'
 
-defineProps({
-    isFeatured: {
-        type: Boolean,
-        default: false,
+const props = defineProps({
+    job: {
+        type: Object,
+        required: true,
     },
-    isNew: {
-        type: Boolean,
-        default: false,
-    }
 });
+
+const companyLogo = computed(() => {
+    return props.job.logo.toLowerCase().replace("./images/", '');
+});
+
+const tags = computed(() => {
+    let tags = [];
+    tags.push(props.job.role)
+    tags.push(props.job.level)
+    let sortedLanguages = props.job.languages.sort();
+    let sortedTools = props.job.tools.sort();
+    tags = tags.concat(sortedLanguages, sortedTools);
+    return tags;
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -53,14 +61,16 @@ defineProps({
     flex-direction: column;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     border-left: 0.5rem solid var(--color-white);
+
     &.featured {
         border-left: 0.5rem solid var(--color-primary);
     }
 }
+
 @media screen and (min-width: 1024px) {
     .c-CardJob {
         display: grid;
-        grid-template-columns: 0.5fr 1fr 2fr;
+        grid-template-columns: 0.5fr 1.3fr 2fr;
         padding: 1.5rem 1.2rem;
         gap: 1.2rem;
     }
@@ -73,6 +83,7 @@ defineProps({
     gap: 0.8rem;
     margin-bottom: 1rem;
     margin-top: -1.2rem;
+
     &::after {
         content: '';
         display: block;
@@ -82,60 +93,73 @@ defineProps({
         opacity: 0.2;
     }
 }
+
 @media screen and (min-width: 1024px) {
     .c-CardJob-Info {
         margin-top: 0;
         margin-bottom: 0;
         gap: 0.5rem;
+
         &::after {
             display: none;
         }
     }
 }
+
 .c-CardJob-Company {
     display: flex;
     flex-direction: row;
     align-items: center;
-    > span {
+
+    >span {
         font-weight: 700;
         margin-right: 1.5rem;
     }
 }
+
 .c-CardJob-CompanyName {
     color: var(--color-primary);
 }
+
 .c-CardJob-Featured {
     display: flex;
     flex-direction: row;
-    > span {
+
+    >span {
         margin: 0 0.5rem;
     }
 }
+
 .c-CardJob-Location {
     display: flex;
     flex-direction: row;
     opacity: 0.7;
-    > span {
+
+    >span {
         &:not(:last-child)::after {
             content: '•';
             margin: 0 0.5rem;
         }
     }
 }
+
 .c-CardJob-Featured {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
 }
+
 .c-CardJob-JobTitle {
     font-weight: 700;
 }
+
 .c-CardJob-Tags {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
     flex-wrap: wrap;
 }
+
 @media screen and (min-width: 1024px) {
     .c-CardJob-Tags {
         display: inline-flex;
@@ -143,18 +167,22 @@ defineProps({
         justify-content: flex-end;
     }
 }
+
 .c-CardJob-CompanyLogo {
     position: relative;
     top: -1.6rem;
+
     img {
         width: 4rem;
     }
 }
+
 @media screen and (min-width: 1024px) {
     .c-CardJob-CompanyLogo {
         position: relative;
         text-align: center;
         top: 0;
+
         img {
             width: 5rem;
             vertical-align: middle;

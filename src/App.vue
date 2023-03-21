@@ -18,6 +18,7 @@ header {
 }
 @media screen and (min-width: 1024px) {
   header {
+    margin-bottom: 3rem;
     background: url('@/assets/images/bg-header-desktop.svg') no-repeat center bottom / cover var(--color-primary);
   }
   
